@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{%load staticfiles%}
+
+{% block content %}
+    <div class="container">
+        <form method="POST" class="form">
+        {% csrf_token %} 
+        {{ form.non_field_errors }}
+            <div class="fieldWrappers">
+                {{form.first_name.errors }}
+                {{ form.first_name.label_tag }}
+                {{form.first_name}}
+            </div>
+            <div class="fieldWrappers">
+                {{form.last_name.errors }}
+                {{ form.last_name.label_tag }}
+                {{form.last_name}}
+            </div>
+            <div class="fieldWrappers">
+                {{form.email.errors }}
+                {{ form.email.label_tag }}
+                {{form.email}}
+            </div>
+            <div class="fieldWrappers">
+                {{form.username.errors }}
+                {{ form.username.label_tag }}
+                {{form.username}}
+            </div>
+            <div class="fieldWrappers">
+                {{form.date_of_birth.errors }}
+                {{ form.date_of_birth.label_tag }}
+                {{form.date_of_birth}}
+            </div>
+            <div class="fieldWrappers">
+                {{form.password1.errors }}
+                {{ form.password1.label_tag }}
+                {{form.password1}}
+            </div>
+            <div class="fieldWrappers">
+                {{form.password2.errors }}
+                {{ form.password2.label_tag }}
+                {{form.password2}}
+            </div>
+            
+
+
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+{% endblock content %}  

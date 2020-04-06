@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+{%load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newspaper App</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/0b40333001.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        background-color: #f3f3f3;
+      }
+      .btn {
+        display: inline-block;
+        line-height: 0 25px;
+        padding: 0 25px;
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        -moz-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #fff;
+        font-family: inherit;
+      }
+      .btn--radius {
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+      }
+
+      .btn--radius-2 {
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+      }
+
+      .btn--pill {
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+      }
+
+      .btn--green {
+        background: #57b846;
+      }
+
+      .btn--green:hover {
+        background: #4dae3c;
+      }
+
+      .btn--blue {
+        background: #4272d7;
+      }
+
+      .btn--blue:hover {
+        background: #3868cd;
+      }
+
+      .btn--red {
+        background: #ff4b5a;
+      }
+
+      .btn--red:hover {
+        background: #eb3746;
+      }
+    </style>
+    {% block externals %} {% endblock externals %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a href="{% url 'home' %}" class="m-1 mr-4">
+          <img src="{% static 'images/live-news.png' %}" height="40px" alt=""
+        /></a>
+        <a class="navbar-brand" href="{% url 'home' %}">News24</a>
+        <!-- <a class="navbar-brand" href="#" style="color:crimson">Product Hunt</a> -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <form method="GET" class="form-inline my-2 my-lg-0" action="">
+          {% csrf_token %}
+          <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Search for products"
+            aria-label="Search"
+            name="data"
+          />
+          <button class="btn btn-success my-2 my-sm-0 p-1" type="submit">
+            Search
+          </button>
+        </form>
+        <!-- <div class="dropdown ml-2 ">
+          <button
+            class="btn btn-primary dropdown-toggle mr-sm-0 my-2 p-1"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Category
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for category in categories %} 
+            <a class="dropdown-item" href="{% url 'category.detail' category.id %}">{{category.name}}</a>
+          {% endfor %}
+          </div>
+        </div> -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <div
+              class="nav-item mt-2 mr-2 text-success text-center text-uppercase font-weight-bold"
+            >
+              Welcome {{ user.first_name}}
+            </div>
+            
+            <a
+              class="nav-item nav-link btn ml-1 btn-primary p-1 text-white"
+              href="javascript:{gotoLogout()}"
+              >Logout</a
+            >
+            <form id="logout" action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" />
+            </form>
+
+            {% else %}
+            <a
+              class="nav-link nav-item btn btn-success text-white"
+              href="{% url 'login' %}"
+              >Login</a
+            >
+            <a
+              class="nav-item nav-link btn ml-1 btn-primary text-white"
+              href="{% url 'register' %}"
+              >Register</a
+            >
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% block content %}
+      
+    {% endblock content %}
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      function gotoLogout() {
+        console.log("logout worked!! ");
+        document.getElementById("logout").submit();
+      }
+    </script>
+    {% block externalScripts %} {% endblock externalScripts %}
+</body>
+</html>
