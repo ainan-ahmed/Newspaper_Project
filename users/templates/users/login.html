@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{%load staticfiles%}
+
+{% block content %}
+    <div class="container">
+        <form method="POST" class="form">
+        {% csrf_token %} 
+        {{ form.non_field_errors }}
+            <div class="fieldWrappers">
+                {{form.email.errors }}
+                {{ form.email.label_tag }}
+                {{form.email}}
+            </div>
+            <div class="fieldWrappers">
+                {{form.username.errors }}
+                {{ form.username.label_tag }}
+                {{form.username}}
+            </div>
+            <div class="fieldWrappers">
+                {{form.password.errors }}
+                {{ form.password.label_tag }}
+                {{form.password}}
+            </div>
+
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+{% endblock content %}  
