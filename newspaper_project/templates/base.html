@@ -100,14 +100,16 @@
             </li>
 
             {% else %}
-            <li>
+            <li class="nav-item mr-1">
               <a
-              class="nav-link nav-item btn btn-success text-white"
+              class="nav-link  btn btn-success text-white"
               href="{% url 'login' %}"
               >Login</a
             >
+            </li>
+            <li class="nav-item">
             <a
-              class="nav-item nav-link btn ml-1 btn-primary text-white"
+              class=" nav-link btn ml-1 btn-primary text-white"
               href="{% url 'register' %}"
               >Register</a
             >
