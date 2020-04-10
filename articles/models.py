@@ -27,6 +27,12 @@ class Article(models.Model):
     
     def pub(self ):
         return self.date.strftime('%b %e %Y')
+    def year(self):
+        return self.date.strftime('%Y')
+    def month(self):
+        return self.date.strftime('%b')
+    def day(self):
+        return self.date.strftime('%d')
     
     def get_absolute_url(self):
         return reverse('article:details',kwargs={'pk':self.id})

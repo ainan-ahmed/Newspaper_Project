@@ -11,6 +11,7 @@ class ArticleListView(ListView):
     model = Article
     context_object_name = 'articles'
     template_name  = 'articles/article_list.html'
+    paginate_by = 1
     
 class ArticleDetailView(DetailView):
     model = Article
