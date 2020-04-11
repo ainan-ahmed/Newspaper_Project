@@ -41,7 +41,7 @@
 <section class="ftco-section">
   <div class="container">
     <div class="row text-center">
-      <h1 class="mb-5 font-weight-bold">Latest News</h1>
+      <h1 class="mb-5 font-weight-bold">Popular News</h1>
     </div>
     <hr />
     <div class="row">
@@ -80,7 +80,10 @@
                 {% endif %}
 
                 <div class="meta">
-                  <p class="mb-0"><a>{{article.pub}}</a></p>
+                  <p class="mb-0"><a>{{article.pub}}</a> | 
+                    <a>{{article.countWords}}</a>
+                  </p>
+                  
                 </div>
               </div>
             </div>

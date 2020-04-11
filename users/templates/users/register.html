@@ -1,50 +1,71 @@
 {% extends "base.html" %}
 {%load staticfiles%}
-
+{% block externals %}
+<link rel="stylesheet" href="{% static 'users/css/style-login.css' %}">
+{% endblock externals %}
 {% block content %}
-    <div class="container">
-        <form method="POST" class="form">
-        {% csrf_token %} 
-        {{ form.non_field_errors }}
-            <div class="fieldWrappers">
-                {{form.first_name.errors }}
-                {{ form.first_name.label_tag }}
-                {{form.first_name}}
-            </div>
-            <div class="fieldWrappers">
-                {{form.last_name.errors }}
-                {{ form.last_name.label_tag }}
-                {{form.last_name}}
-            </div>
-            <div class="fieldWrappers">
-                {{form.email.errors }}
-                {{ form.email.label_tag }}
-                {{form.email}}
-            </div>
-            <div class="fieldWrappers">
-                {{form.username.errors }}
-                {{ form.username.label_tag }}
-                {{form.username}}
-            </div>
-            <div class="fieldWrappers">
-                {{form.date_of_birth.errors }}
-                {{ form.date_of_birth.label_tag }}
-                {{form.date_of_birth}}
-            </div>
-            <div class="fieldWrappers">
-                {{form.password1.errors }}
-                {{ form.password1.label_tag }}
-                {{form.password1}}
-            </div>
-            <div class="fieldWrappers">
-                {{form.password2.errors }}
-                {{ form.password2.label_tag }}
-                {{form.password2}}
-            </div>
-            
-
-
-        <input type="submit" value="Submit">
-      </form>
+<div class="container">
+        <div class="row">
+			<div class="col-md-5 mx-auto">
+			<div id="first">
+				<div class="myform form ">
+					 <div class="logo mb-3">
+						 <div class="col-md-12 text-center">
+							<h1>Register</h1>
+						 </div>
+					</div>
+                   
+                 
+                    <form method="POST" class="form">
+                    {% csrf_token %} 
+                    {{ form.non_field_errors }}
+                        <div class="form-group">
+                            {{form.first_name.errors }}
+                            {{ form.first_name.label_tag }}
+                            {{form.first_name}}
+                        </div>
+                        <div class="form-group">
+                            {{form.last_name.errors }}
+                            {{ form.last_name.label_tag }}
+                            {{form.last_name}}
+                        </div>
+                        <div class="form-group">
+                            {{form.email.errors }}
+                            {{ form.email.label_tag }}
+                            {{form.email}}
+                        </div>
+                        <div class="form-group">
+                            {{form.username.errors }}
+                            {{ form.username.label_tag }}
+                            {{form.username}}
+                        </div>
+                        <div class="form-group">
+                            {{form.date_of_birth.errors }}
+                            {{ form.date_of_birth.label_tag }}
+                            {{form.date_of_birth}}
+                        </div>
+                        <div class="form-group">
+                            {{form.password1.errors }}
+                            {{ form.password1.label_tag }}
+                            <input type="password" name="password1" required id="id_password1" class="form-control" class="Enter Password">
+                        </div>
+                        <div class="form-group">
+                            {{form.password2.errors }}
+                            {{ form.password2.label_tag }}
+                            <input type="password" name="password2" required id="id_password2" class="form-control" placeholder="Confirm Password">
+                        </div>
+                      <div class="col-md-12 text-center ">
+                              <button type="submit" class=" btn btn-block mybtn btn-success tx-tfm ">Register</button>
+                           </div>
+                  </form>
+				</div>
+			</div>
+			  
+			</div>
+		</div>
     </div>
-{% endblock content %}  
+
+{% endblock content %}
+{% block externalscripts %}
+<script src="{% static 'users/js/login.js' %}"></script>
+{% endblock externalscripts %}

@@ -33,7 +33,7 @@
     {% block externals %} {% endblock externals %}
 </head>
 <body>
-    <nav class="navbar px-md-0 navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <nav class="navbar  px-md-0 navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
         <a href="{% url 'home' %}" class=" navbar-brand">
           <img src="{% static 'images/live-news.png' %}" height="40px" alt=""
@@ -75,7 +75,7 @@
         </div> -->
         <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
 	          <li class="nav-item"><a href="{% url 'article:list' %}" class="nav-link">Articles</a></li>
 	          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Team</a></li>
             <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
