@@ -40,12 +40,11 @@
   <div class="wrapper wrapper--w790">
     <div class="card card-5">
       <div class="card-heading">
-        <h2 class="title">Create Article</h2>
+        <h2 class="title">Edit Article</h2>
       </div>
       <div class="card-body">
         <form
           method="POST"
-          action="{% url 'article:create'%}"
           enctype="multipart/form-data"
         >
         {% csrf_token %}
@@ -101,7 +100,7 @@
 
           <div>
             <button class="btn btn--radius-2 btn--red" type="submit">
-              Create
+              Update
             </button>
           </div>
         </form>

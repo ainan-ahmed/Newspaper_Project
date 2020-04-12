@@ -7,4 +7,8 @@ class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = {'title','body','category','image'}
+        widgets = {
+            'title':forms.TextInput(attrs={'class':'input--style-5'}),
+            'body':forms.Textarea(attrs={'class':'input--style-5','col':40,'row':20})
+        }
         
