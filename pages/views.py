@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import (CreateView,DeleteView,DetailView,
                                   UpdateView,ListView,TemplateView)
-from articles.models import Article
+from articles.models import Article,Category
 # Create your views here.
 class Home(ListView):
     model = Article
@@ -18,3 +18,7 @@ class About(TemplateView):
 
 class Contact(TemplateView):
     template_name = 'pages/contact.html'
+    
+class Category(DetailView):
+    template_name = 'pages/category.html'
+    model = Category

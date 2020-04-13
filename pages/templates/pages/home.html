@@ -57,7 +57,7 @@
             <div class="col-md-6 col-lg-6 col-xl-4 d-flex">
               <div class="text w-100 pl-md-3">
                 <span class="subheading">{{article.category.name}}</span>
-                <h2><a href="#">{{article.title}}</a></h2>
+                <h2><a href="{% url 'article:details' article.id %}">{{article.title}}</a></h2>
                 {% if article.author == request.user %}
                 <ul class="media-social list-unstyled">
                   <li class="ftco-animate">

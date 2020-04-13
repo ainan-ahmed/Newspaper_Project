@@ -43,11 +43,8 @@
         <h2 class="title">Edit Article</h2>
       </div>
       <div class="card-body">
-        <form
-          method="POST"
-          enctype="multipart/form-data"
-        >
-        {% csrf_token %}
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
           <div class="form-row m-b-55">
             <div class="name">Title</div>
             <div class="value">
@@ -55,8 +52,7 @@
                 <div class="col">
                   <div class="input-group-desc input--style-5">
                     <!-- <input class="input--style-5" type="text" name="title"   required/> -->
-                    {{form.title}}
-                    
+                    {{form.title.errors}} {{form.title}}
                   </div>
                 </div>
               </div>
@@ -66,9 +62,9 @@
             <div class="name">Category</div>
             <div class="value">
               <div class="input-group">
-                <div class="rs-select2 js-select-simple select--no-search ">
-                {{form.category}}
-                 <div class="select-dropdown"></div>
+                <div class="rs-select2 js-select-simple select--no-search">
+                  {{form.category}}
+                  <div class="select-dropdown"></div>
                 </div>
               </div>
             </div>
@@ -78,7 +74,7 @@
             <div class="value">
               <div class="input-group">
                 <!-- <input type="file" class="form-control-file" id="image" name="image" required> -->
-                {{form.image}}
+                {{form.image.errors}} {{form.image}}
               </div>
             </div>
           </div>
@@ -88,15 +84,13 @@
               <div class="row row-space">
                 <div class="col">
                   <div class="input-group-desc">
-                    
                     <!-- <textarea name="body" class="input--style-5" id="" cols="40" rows="20" required></textarea> -->
-                    {{form.body}}
+                    {{form.body.errors}} {{form.body}}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-         
 
           <div>
             <button class="btn btn--radius-2 btn--red" type="submit">
