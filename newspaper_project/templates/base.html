@@ -42,20 +42,21 @@
         aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
-      <form method="GET" class="form-inline my-2 my-lg-0 navbar-link" action="">
+      <!-- <form method="GET" class="form-inline my-2 my-lg-0 navbar-link" action="">
         {% csrf_token %}
         <input class="form-control " type="text" placeholder="Search" aria-label="Search" name="data"
-          style="width: 190px;" />
-        <button class="btn btn-success  my-sm-0 p-1" type="submit">
+          style="width:70%; height: 5%;" />
+        <button class="btn btn-success  my-sm-0 p-1 m-2" type="submit">
           Search
         </button>
-      </form>
+      </form> -->
 
       <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item " id="home"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
           <li class="nav-item">
-            <div class="dropdown  ">
-              <a class="btn font-weight-bold dropdown-toggle  my-3 p-1 ml-1" type="button" id="dropdownMenuButton"
+            <div class="dropdown nav-link">
+              <a class="dropdown-toggle    ml-1" type="button" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Category
               </a>
@@ -66,7 +67,6 @@
               </div>
             </div>
           </li>
-          <li class="nav-item active" id="home"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
           <li class="nav-item" id="articles"><a href="{% url 'article:list' %}" class="nav-link">Articles</a></li>
           <li class="nav-item" id="team"><a href="{% url 'about' %}" class="nav-link">Team</a></li>
           <li class="nav-item" id="contact"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
@@ -187,14 +187,7 @@
       <div class="row">
         <div class="col-md-12 text-center">
 
-          <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>
-              document.write(new Date().getFullYear());
-            </script> All rights reserved | This template is made with <i class="icon-heart color-danger"
-              aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          </p>
+          
         </div>
       </div>
     </div>
@@ -223,7 +216,7 @@
   <script src="{% static 'js/main.js' %}"></script>
   <script type="text/javascript">
     function gotoLogout() {
-      console.log("logout worked!! ");
+     // console.log("logout worked!! ");
       document.getElementById("logout").submit();
     }
   </script>

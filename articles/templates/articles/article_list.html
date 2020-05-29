@@ -25,7 +25,7 @@
                 a large language ocean.
               </p>
               <div class="mouse">
-                <a href="#" class="mouse-icon">
+                <a href="#posts" class="mouse-icon">
                   <div class="mouse-wheel">
                     <span class="ion-ios-arrow-round-down"></span>
                   </div>
@@ -39,7 +39,7 @@
   </div>
 </div>
 
-   	<section class="ftco-section bg-light">
+   	<section class="ftco-section bg-light" id="posts">
       <div class="container">
         <div class="row d-flex">
           {% for article  in articles %}
@@ -103,12 +103,12 @@
       </div>
     </section>
 
-
 {% endblock content %}
 {% block extenalscripts %}
-  <script>
-    $('#home').removeClass('active');
-    $('#articles').addClass('active');
-    
+  <script type="text/javascript">
+  //console.log('asdfasdf');
+  $('li.active').removeClass('active');
+  $("#home").removeClass('active');
+  $('#articles').addClass('active');
   </script>
 {% endblock extenalscripts %}
