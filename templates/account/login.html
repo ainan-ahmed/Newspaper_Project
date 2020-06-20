@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {%load staticfiles%}
+{% load crispy_forms_tags %}
 {% block externals %}
     <link rel="stylesheet" href="{% static 'users/css/style-login.css' %}">
 {% endblock externals %}
@@ -17,7 +18,7 @@
                    <form  method="post" name="login">
                        {% csrf_token %}
                             
-                           <div class="form-group">
+                           <!-- <div class="form-group">
                               {{form.username.errors }}
                                 {{ form.username.label_tag }}
                                 <input type="text" class= 'form-control' name="username" autofocus required id="id_username" placeholder="Enter Username">
@@ -30,13 +31,14 @@
                            </div>
                            <div class="form-group">
                               <p class="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
-                           </div>
+                           </div> -->
+                           {{ form|crispy }}
                            <div class="col-md-12 text-center ">
                               <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
                            </div>
                            
                            <div class="form-group">
-                              <p class="text-center">Don't have account? <a href="{% url 'register' %}" id="signup">Sign up here</a></p>
+                              <p class="text-center">Don't have account? <a href="{% url 'account_signup' %}" id="signup">Sign up here</a></p>
                            </div>
                         </form>
                  

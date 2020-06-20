@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {%load staticfiles%}
+{% load crispy_forms_tags %}
 {% block externals %}
 <link rel="stylesheet" href="{% static 'users/css/style-login.css' %}">
 {% endblock externals %}
@@ -18,8 +19,8 @@
                  
                     <form method="POST" class="form">
                     {% csrf_token %} 
-                    {{ form.non_field_errors }}
-                        <div class="form-group">
+                    <!-- {{ form.non_field_errors }} -->
+                        <!-- <div class="form-group">
                             {{form.username.errors }}
                             {{ form.username.label_tag }}
                             {{form.username}}
@@ -54,7 +55,8 @@
                             {{form.password2.errors }}
                             {{ form.password2.label_tag }}
                             <input type="password" name="password2" required id="id_password2" class="form-control" placeholder="Confirm Password">
-                        </div>
+                        </div> -->
+                        {{ form|crispy }}
                       <div class="col-md-12 text-center ">
                               <button type="submit" class=" btn btn-block mybtn btn-success tx-tfm ">Register</button>
                            </div>

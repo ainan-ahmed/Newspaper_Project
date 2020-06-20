@@ -45,7 +45,7 @@
           {% for article  in articles %}
             <div class="col-md-4 d-flex ftco-animate">
           	<div class="blog-entry justify-content-end">
-              <a href="{% url 'article:details' article.id %}">
+              <a href="{% url 'article:details' article.id  %}">
                 <img src="{{article.image.url}}" alt="" class="block-20">
               </a>
               <div class="text p-4 float-right d-block">

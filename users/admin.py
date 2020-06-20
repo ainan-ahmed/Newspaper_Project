@@ -1,13 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .forms import CustomUserChangeForm, CustomUserCreationForm
 from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
-    add_form =  CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = CustomUser
-    #list_display = [] #controls the fields to be listed in django admin
+    list_display = ['username','first_name','last_name','email','date_of_birth'] #controls the fields to be listed in django admin
     
 admin.site.register(CustomUser,CustomUserAdmin)
