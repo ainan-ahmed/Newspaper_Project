@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'allauth',
     'allauth.account',
+    'taggit',
 
     # local
     'users.apps.UsersConfig',

@@ -8,6 +8,6 @@ urlpatterns = [
          views.ArticleDetailView.as_view(), name='details'),
     path('<uuid:pk>/edit', views.ArticleUpdateView.as_view(), name='edit'),
     path('<uuid:pk>/delete', views.ArticleDeleteView.as_view(), name='delete'),
-    path('create',views.ArticleCreateView.as_view(),name = 'create'),   
+    path('create',views.ArticleCreateView.as_view(),name = 'create'),
     
 ]

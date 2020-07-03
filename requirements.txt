@@ -10,3 +10,4 @@ whitenoise
 django-crispy-forms
 django-allauth
 readtime
+django_taggit

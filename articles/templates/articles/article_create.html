@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block externals %} {% load staticfiles %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block externals %} {% load staticfiles %}
 <!-- Icons font CSS-->
 <link
   href="{% static 'articles/vendor/mdi-font/css/material-design-iconic-font.min.css' %}"
@@ -54,22 +56,20 @@
             <div class="value">
               <div class="row row-space">
                 <div class="col">
-                  <div class="input-group-desc input--style-5">
-                    <!-- <input class="input--style-5" type="text" name="title"   required/> -->
-                    {{form.title.errors}}
-                    {{form.title}}
+                  <div class="input-group-desc">
+                    {{form.title | as_crispy_field}}
                     
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="form-row">
+          <div class="form-row m-b-55">
             <div class="name">Category</div>
             <div class="value">
               <div class="input-group">
                 <div class="rs-select2 js-select-simple select--no-search ">
-                {{form.category}}
+                {{form.category | as_crispy_field}}
                  <div class="select-dropdown"></div>
                 </div>
               </div>
@@ -79,9 +79,7 @@
             <div class="name">Image</div>
             <div class="value">
               <div class="input-group">
-                <!-- <input type="file" class="form-control-file" id="image" name="image" required> -->
-                {{form.image.errors}}
-                {{form.image}}
+                {{form.image | as_crispy_field}}
               </div>
             </div>
           </div>
@@ -91,10 +89,19 @@
               <div class="row row-space">
                 <div class="col">
                   <div class="input-group-desc">
-                    
-                    <!-- <textarea name="body" class="input--style-5" id="" cols="40" rows="20" required></textarea> -->
-                    {{form.body.errors}}
-                    {{form.body}}
+                    {{form.body | as_crispy_field}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row m-b-55">
+            <div class="name">Tags</div>
+            <div class="value">
+              <div class="row row-space">
+                <div class="col">
+                  <div class="input-group-desc" data-role="tagsinput">
+                    {{form.tags | as_crispy_field}}
                   </div>
                 </div>
               </div>
@@ -106,10 +113,7 @@
               <div class="row row-space">
                 <div class="col">
                   <div class="input-group-desc">
-                    
-                    <!-- <textarea name="body" class="input--style-5" id="" cols="40" rows="20" required></textarea> -->
-                    {{form.status.errors}}
-                    {{form.status}}
+                    {{form.status | as_crispy_field }}
                   </div>
                 </div>
               </div>

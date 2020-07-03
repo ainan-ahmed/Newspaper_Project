@@ -13,7 +13,7 @@
       class="row no-gutters slider-text js-fullheight align-items-end justify-content-center"
     >
       <div class="col-md-9 ftco-animate pb-5 text-center">
-        <h2 class="mb-3 bread">{{article.title}}</h2>
+        <h1 class="mb-3 bread">{{article.title}}</h1>
         <p class="breadcrumbs">
           <span class="mr-2"
             ><a href="{% url 'home' %}"
@@ -40,10 +40,10 @@
         <p class="mb-5">{{article.body}}</p>
         <div class="tag-widget post-tag-container mb-5 mt-5">
           <div class="tagcloud">
-            <a href="#" class="tag-cloud-link">Life</a>
-            <a href="#" class="tag-cloud-link">Sport</a>
-            <a href="#" class="tag-cloud-link">Tech</a>
-            <a href="#" class="tag-cloud-link">Travel</a>
+            {% for i in article.tags.all %}
+            <a href="{% url 'tag' i.id %}" class="tag-cloud-link">{{i.name}}</a>
+              
+            {% endfor %}
           </div>
         </div>
 

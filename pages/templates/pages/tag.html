@@ -38,41 +38,66 @@
     </div>
   </div>
 </div>
-
-   	<section class="ftco-section bg-light" id="posts">
-      <div class="container">
-        <div class="row d-flex">
-          {% for article  in articles %}
-            <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="{% url 'article:details' article.id  %}">
-                <img src="{{article.image.url}}" alt="" class="block-20">
+<section class="ftco-section" id="posts">
+  <div class="container">
+    <div class="row text-center">
+      <h1 class="mb-5 font-weight-bold">All news in {{tag.name}} </h1>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-md-12">
+        {% for article in articles %}
+        <div class="case">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xl-8 d-flex">
+              <a href=" {% url 'article:details' article.id %}">
+                <img src="{{article.image.url}}" class="img w-100 mb-3 mb-md-0" />
               </a>
-              <div class="text p-4 float-right d-block">
-              	<div class="topper d-flex align-items-center">
-              		<div class="one py-2 pl-3 pr-1 align-self-stretch">
-              			<span class="day">{{article.day}}</span>
-              		</div>
-              		<div class="two pl-0 pr-3 py-2 align-self-stretch">
-              			<span class="yr">{{article.year}}</span>
-              			<span class="mos">{{article.month}}</span>
-              		</div>
-              	</div>
-              	<h3 class="heading mb-3"><a href="{% url 'article:details' article.id %}">{{article.title}}</a></h3>
-                <p>{{article.summary}}</p>
-                <p><a href="{% url 'article:details' article.id %}" class="btn-custom"><span class="ion-ios-arrow-round-forward mr-3"></span>Read more</a></p>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-4 d-flex">
+              <div class="text w-100 pl-md-3">
+                <span class="subheading">{{article.tag.name}}</span>
+                <h2><a href="{% url 'article:details' article.id %}">{{article.title}}</a></h2>
+                {% if article.author == request.user %}
+                <ul class="media-social list-unstyled">
+                  <li class="ftco-animate">
+                    <a
+                      href="{% url 'article:edit' article.id %}"
+                      class="p-2"
+                      style="width: 80px;"
+                      >Edit
+                    </a>
+                  </li>
+                  <li class="ftco-animate">
+                    <a
+                      href="{% url 'article:delete' article.id %}"
+                      class="p-1"
+                      style="width: 80px;"
+                      >Delete</a
+                    >
+                  </li>
+                </ul>
+                {% endif %}
+
+                <div class="meta">
+                  <p class="mb-0"><a>{{article.pub}}</a> | 
+                    <a>{{article.countWords}}</a>
+                  </p>
+                  
+                </div>
               </div>
             </div>
           </div>
-          {% endfor %}
         </div>
-        
-        <div class="row mt-5">
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row mt-5">
       <div class="col text-center">
         <div class="block-27">
           <ul class="pagination float-right">
          {% if page_obj.paginator.num_pages %}
-        <li class="current page-item p-2 ">
+        <li class="current page-item p-2">
           Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </li>
         {% endif %}    
@@ -99,16 +124,7 @@
         </div>
       </div>
     </div>
-
-      </div>
-    </section>
+  </div>
+</section>
 
 {% endblock content %}
-{% block extenalscripts %}
-  <script type="text/javascript">
-  //console.log('asdfasdf');
-  $('li.active').removeClass('active');
-  $("#home").removeClass('active');
-  $('#articles').addClass('active');
-  </script>
-{% endblock extenalscripts %}

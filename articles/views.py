@@ -4,7 +4,7 @@ from .models import Category, Article, Comment
 from django.views.generic import (ListView, CreateView,
                                   UpdateView, DeleteView, DetailView, FormView)
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 from django.core.exceptions import PermissionDenied
 from django.views.generic.edit import FormMixin
 
@@ -13,18 +13,18 @@ class ArticleListView(ListView):
     model = Article
     context_object_name = 'articles'
     template_name = 'articles/article_list.html'
-    paginate_by = 1
+    paginate_by = 3
 
 
 class ArticleDetailView(FormMixin, DetailView):
     model = Article
     template_name = 'articles/article_details.html'
     form_class = CommentForm
-
-    def success_url(self):
-        id = self.kwargs['pk']
-        return reverse_lazy('articles:details', kwargs={'pk':self.object.pk})
-        # return redirect('article:details',article_id = self.object.pk)
+    def get_success_url(self):
+        #id = self.object.kwargs['id']
+        return reverse_lazy('articles:details', args=[self.object.id])
+        #return reverse('home')
+        #return redirect('article:details',article_id = self.object.pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

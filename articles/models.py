@@ -5,7 +5,21 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 import uuid
 import readtime
+from django.utils.translation import ugettext_lazy as _
+from taggit.managers import TaggableManager
+from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
+from .managers import PublishedManager
 # Create your models here.
+
+
+class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
+    # If you only inherit GenericUUIDTaggedItemBase, you need to define
+    # a tag field. e.g.
+    # tag = models.ForeignKey(Tag, related_name="uuid_tagged_items", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
 
 
 class Category(models.Model):
@@ -31,9 +45,11 @@ class Article(models.Model):
                               default='draft')
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    tags = TaggableManager(through=UUIDTaggedItem)
     image = models.ImageField(upload_to='images/', blank=True)
     views = models.IntegerField(default=0)
-
+    objects = models.Manager()
+    published_article = PublishedManager()
     class Meta:
         ordering = ('-published',)
 
