@@ -95,7 +95,12 @@
               <input type="hidden" />
             </form>
           </li>
-
+          <li class="nav-item">
+            <a href="{% url 'articles:feed'%}" class="nav-link ml-2  font-weight-bold text-white p-1"
+             style="border: 3px solid black;">
+             RSS
+         </a>
+          </li>
           {% else %}
           <li class="nav-item mr-1">
             <a class="nav-link  btn btn-success text-white" href="{% url 'account_login' %}">Login</a>
@@ -104,13 +109,15 @@
             <a class=" nav-link btn ml-1 btn-primary text-white" href="{% url 'account_signup' %}">Register</a>
           </li>
           {% endif %}
+          
         </ul>
+        
       </div>
-      <div class="collapse navbar-collapse" id="ftco-nav">
+      <!-- <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
 
         </ul>
-      </div>
+      </div> -->
     </div>
   </nav>
   {% block content %}
@@ -199,6 +206,7 @@
 
 
   <script src="{% static 'js/jquery.min.js' %}"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
   <script src="{% static 'js/popper.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
