@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load article_tags %} 
+{% load crispy_forms_tags %}
+{% load staticfiles %} {% block content %}
+<div
+  class="hero-wrap js-fullheight"
+  style="background-image: url('static/images/bg_1.jpg');"
+  data-stellar-background-ratio="0.5"
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div
+      class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
+      data-scrollax-parent="true"
+    >
+      <div class="col-md-12 ftco-animate">
+        <h2 class="subheading">Hello! Welcome to</h2>
+        <h1 class="mb-4 mb-md-0">News24</h1>
+        <div class="row">
+          <div class="col-md-7">
+            <div class="text">
+              <p>
+                Far far away, behind the word mountains, far from the countries
+                Vokalia and Consonantia, there live the blind texts. Separated
+                they live in Bookmarksgrove right at the coast of the Semantics,
+                a large language ocean.
+              </p>
+              <div class="mouse">
+                <a href="#section" class="mouse-icon">
+                  <div class="mouse-wheel">
+                    <span class="ion-ios-arrow-round-down"></span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h1 class="font-weight-bold mt-3 mb-2 text-lg-center">Search for Articles</h1>
+  <form
+    class="form-inline d-flex justify-content-center md-form form-sm"
+    method="get"
+    action="{% url 'article:search'%}"
+  >
+    <!-- <input class="form-control form-control-sm mr-3 w-75 my-5" type="text" placeholder="Search"
+    aria-label="Search"> -->
+    {{form.query}}
+    <i class="fas fa-search my-5" aria-hidden="true"></i>
+  </form>
+  {% if query %}
+  <h2 class="font-weight-bold text-center">Articles containing <span style="color:blue">{{query}}</span></h2>
+  {% if result.count == 0 %}
+  <h3 class="font-weight-bold" style="color: red;">No Results found</h3>
+  {% else %}
+  <h3 class="font-weight-bold" style="color:green">
+    Found {{result.count}} Result{{result.count|pluralize}}
+  </h3>
+  {% for res in result %}
+        <div class="mb-4">
+        <h4> <a href="{{ res.get_absolute_url }}"> {{res.title}}</a></h4>
+        {{res.body|truncatewords_html:5}}
+        </div>
+  {% endfor %}
+  {% endif %} {% endif %}
+</div>
+{% endblock content %}

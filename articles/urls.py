@@ -16,6 +16,7 @@ urlpatterns = [
     path('<uuid:pk>/delete', views.ArticleDeleteView.as_view(), name='delete'),
     path('create',views.ArticleCreateView.as_view(),name = 'create'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
-    path('feed', LatestArticlesFeed(), name="feed")
+    path('feed', LatestArticlesFeed(), name="feed"),
+    path('search', views.article_search,name = "search")
     
 ]

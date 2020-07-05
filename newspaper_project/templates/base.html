@@ -50,7 +50,6 @@
           Search
         </button>
       </form> -->
-
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item " id="home"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
@@ -70,6 +69,11 @@
           <li class="nav-item" id="articles"><a href="{% url 'article:list' %}" class="nav-link">Articles</a></li>
           <li class="nav-item" id="team"><a href="{% url 'about' %}" class="nav-link">Team</a></li>
           <li class="nav-item" id="contact"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+          <li class="nav-item navbar-brand">
+            <a href="{% url 'articles:search' %}" class="nav-link">
+           <img src="{% static 'images/search.png'%}" height="30px" alt="">
+          </a>
+          </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
             <div class=" nav-link  mr-2  text-uppercase font-weight-bold">
@@ -96,9 +100,8 @@
             </form>
           </li>
           <li class="nav-item">
-            <a href="{% url 'articles:feed'%}" class="nav-link ml-2  font-weight-bold text-white p-1"
-             style="border: 3px solid black;">
-             RSS
+            <a href="{% url 'articles:feed'%}" class="nav-link ml-4  font-weight-bold text-white p-1"
+             > <img src="{% static 'images/rss.png'%}" alt="" height="30px">
          </a>
           </li>
           {% else %}
@@ -109,6 +112,7 @@
             <a class=" nav-link btn ml-1 btn-primary text-white" href="{% url 'account_signup' %}">Register</a>
           </li>
           {% endif %}
+
           
         </ul>
         

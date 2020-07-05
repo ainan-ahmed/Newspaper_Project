@@ -1,12 +1,33 @@
 from django.shortcuts import render, redirect
-from .forms import ArticleCreateForm, CommentForm
+from .forms import ArticleCreateForm, CommentForm, SearchForm
 from .models import Category, Article, Comment
 from django.views.generic import (ListView, CreateView,
                                   UpdateView, DeleteView, DetailView, FormView)
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy,reverse
+from django.urls import reverse_lazy, reverse
 from django.core.exceptions import PermissionDenied
 from django.views.generic.edit import FormMixin
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+
+
+def article_search(request):
+    form = SearchForm()
+    query = None
+    result = []
+
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            search_vector = SearchVector('title', weight='A') + \
+                SearchVector('body', weight='A') + \
+                SearchVector('author', weight='A')
+            query = form.cleaned_data['query']
+            search_query = SearchQuery(query)
+            result = Article.published_article.annotate(
+                search=search_vector, rank=SearchRank(search_vector, search_query)).filter(rank__gte=0.3) \
+                .order_by('-rank')
+
+    return render(request, 'articles/search.html', {'form': form, 'query': query, 'result': result})
 
 
 class ArticleListView(ListView):
@@ -20,11 +41,12 @@ class ArticleDetailView(FormMixin, DetailView):
     model = Article
     template_name = 'articles/article_details.html'
     form_class = CommentForm
+
     def get_success_url(self):
         #id = self.object.kwargs['id']
         return reverse_lazy('articles:details', args=[self.object.id])
-        #return reverse('home')
-        #return redirect('article:details',article_id = self.object.pk)
+        # return reverse('home')
+        # return redirect('article:details',article_id = self.object.pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

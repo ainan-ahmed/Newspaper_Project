@@ -1,4 +1,9 @@
-{% extends "base.html" %} {% block externals %} {% load staticfiles %}
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load article_tags %} 
+{% block externals %} 
 <!-- Icons font CSS-->
 <link
   href="{% static 'articles/vendor/mdi-font/css/material-design-iconic-font.min.css' %}"
@@ -43,16 +48,16 @@
         <h2 class="title">Edit Article</h2>
       </div>
       <div class="card-body">
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'article:edit' article.id %}">
           {% csrf_token %}
           <div class="form-row m-b-55">
             <div class="name">Title</div>
             <div class="value">
               <div class="row row-space">
                 <div class="col">
-                  <div class="input-group-desc input--style-5">
+                  <div class="input-group-desc">
                     <!-- <input class="input--style-5" type="text" name="title"   required/> -->
-                    {{form.title.errors}} {{form.title}}
+                    {{form.title | as_crispy_field}}
                   </div>
                 </div>
               </div>
@@ -63,7 +68,7 @@
             <div class="value">
               <div class="input-group">
                 <div class="rs-select2 js-select-simple select--no-search">
-                  {{form.category}}
+                  {{form.category | as_crispy_field}}
                   <div class="select-dropdown"></div>
                 </div>
               </div>
@@ -74,7 +79,7 @@
             <div class="value">
               <div class="input-group">
                 <!-- <input type="file" class="form-control-file" id="image" name="image" required> -->
-                {{form.image.errors}} {{form.image}}
+                {{form.image | as_crispy_field}}
               </div>
             </div>
           </div>
@@ -85,13 +90,36 @@
                 <div class="col">
                   <div class="input-group-desc">
                     <!-- <textarea name="body" class="input--style-5" id="" cols="40" rows="20" required></textarea> -->
-                    {{form.body.errors}} {{form.body}}
+                    {{form.body | as_crispy_field}}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
+           <div class="form-row m-b-55">
+            <div class="name">Tags</div>
+            <div class="value">
+              <div class="row row-space">
+                <div class="col">
+                  <div class="input-group-desc" data-role="tagsinput">
+                    {{form.tags | as_crispy_field}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+            <div class="form-row m-b-55">
+            <div class="name">Status</div>
+            <div class="value">
+              <div class="row row-space">
+                <div class="col">
+                  <div class="input-group-desc">
+                    {{form.status | as_crispy_field }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div>
             <button class="btn btn--radius-2 btn--red" type="submit">
               Update
