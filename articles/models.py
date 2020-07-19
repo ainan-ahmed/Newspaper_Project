@@ -48,6 +48,8 @@ class Article(models.Model):
     tags = TaggableManager(through=UUIDTaggedItem)
     image = models.ImageField(upload_to='images/', blank=True)
     views = models.IntegerField(default=0)
+    users_like = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='articles_liked', blank=True)
     objects = models.Manager()
     published_article = PublishedManager()
     class Meta:

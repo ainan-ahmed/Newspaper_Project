@@ -17,6 +17,7 @@ urlpatterns = [
     path('create',views.ArticleCreateView.as_view(),name = 'create'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('feed', LatestArticlesFeed(), name="feed"),
-    path('search', views.article_search,name = "search")
+    path('search', views.article_search,name = "search"),
+    path('react', views.react, name ="react")
     
 ]

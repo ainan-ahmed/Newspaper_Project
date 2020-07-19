@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% load staticfiles %} {% load crispy_forms_tags %} 
+{% extends "base.html" %} 
+{% load staticfiles %}
+ {% load crispy_forms_tags %}
+{% load%}
 {%load article_tags %} {% block externals %}
 <style>
   .hidden {
@@ -41,7 +44,7 @@
         <p class="mb-5">
           <img src="{{article.image.url}}" alt="" class="img-fluid" />
         </p>
-        <p class="mb-5">{{article.body}}</p>
+        <p class="mb-5">{{article.body|linebreaks}}</p>
         <div class="tag-widget post-tag-container mb-5 mt-5">
           <div class="tagcloud">
             {% for i in article.tags.all %}
@@ -50,6 +53,23 @@
             {% endfor %}
           </div>
         </div>
+        <span class="count">
+        <span class="total">{{ article.users_like.count }}</span>
+        like{{ article.users_like.count|pluralize }}
+        </span>
+
+        <a href="#" data-id="{{ article.id }}" 
+        data-action="{% if request.user in   article.users_like.all %}
+        un{% endif %}like"
+        class="react btn btn-success"
+          >
+          {% if request.user not in article.users_like.all %}
+          Like
+          {% else %}
+          Unlike
+          {% endif %}
+
+          </a>
 
         <div class="about-author d-flex p-4 bg-light">
           <div class="bio mr-5">
@@ -111,7 +131,7 @@
             <h3>Categories</h3>
             {% for category in categories %}
             <li>
-              <a href="#"
+              <a href="{% url 'category' category.id %}"
                 >{{category.name}} <span class="ion-ios-arrow-forward"></span
               ></a>
             </li>
@@ -119,13 +139,12 @@
           </div>
         </div>
 
-        {% latest_articles %} 
-        {% popular_articles %}
+        {% latest_articles %} {% popular_articles %}
         <div class="sidebar-box ftco-animate">
           <h3>Tag Cloud</h3>
           <div class="tagcloud">
             {% for tag in tags|slice:':5' %}
-            <a href="#" class="tag-cloud-link">{{tag}}</a>
+            <a href="{% url 'tag' tag.id %}" class="tag-cloud-link">{{tag}}</a>
             {% endfor %}
           </div>
         </div>
@@ -145,4 +164,35 @@
 </section>
 <!-- .section -->
 
-{% endblock content %} 
+{% endblock  %} 
+{% block domready %} 
+  $('a.react').click(function(e)
+  {
+  e.preventDefault();
+$.post('{% url "articles:react" %}',
+{
+id: $(this).data('id'), 
+action: $(this).data('action')
+
+},
+function(data){
+if (data['status'] == 'ok')
+{
+var previous_action = $('a.react').data('action');
+// toggle data-action
+$('a.react').data('action', previous_action == 'like' ?
+'unlike' : 'like');
+// toggle link text
+$('a.react').text(previous_action == 'like' ? 'Unlike' :
+'Like');
+// update total likes
+var previous_likes = parseInt($('span.count .total').
+text());
+$('span.count .total').text(previous_action == 'like' ?
+previous_likes + 1 : previous_likes - 1);
+}
+}
+);
+});
+{% endblock %}
+

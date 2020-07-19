@@ -8,7 +8,57 @@ from django.urls import reverse_lazy, reverse
 from django.core.exceptions import PermissionDenied
 from django.views.generic.edit import FormMixin
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from common.decorators import ajax_required
+from django.core.paginator import (Paginator, EmptyPage, 
+                                   PageNotAnInteger)
 
+@ajax_required
+@login_required
+@require_POST
+def react(request):
+    article_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if article_id and action:
+        try:
+            article = Article.objects.get(id=article_id)
+            if action == "like":
+                article.users_like.add(request.user)
+            else:
+                article.users_like.remove(request.user)
+            return JsonResponse({'status':'ok'})    
+        except:
+            pass    
+    return JsonResponse({'status':'error'})
+
+def article_list_with_ajax_pagination(request):
+    articles = Article.published_article.all()
+    paginator = Paginator(articles, 1)
+    page = request.GET.get('page')
+    try:
+        articles = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        articles = paginator.page(1)
+    except EmptyPage:
+        if request.is_ajax():
+            # If the request is AJAX and the page is out of range
+            # return an empty page
+            return HttpResponse('')
+        # If page is out of range deliver last page of results
+        articles = paginator.page(paginator.num_pages)
+    if request.is_ajax():
+        return render(request,
+                        'pages/list_ajax.html',
+                        {'articles': articles})
+    return render(request,
+                    'pages/home.html',
+                    {'articles': articles})
+
+    
+    
 
 def article_search(request):
     form = SearchForm()
@@ -43,11 +93,8 @@ class ArticleDetailView(FormMixin, DetailView):
     form_class = CommentForm
 
     def get_success_url(self):
-        #id = self.object.kwargs['id']
         return reverse_lazy('articles:details', args=[self.object.id])
-        # return reverse('home')
-        # return redirect('article:details',article_id = self.object.pk)
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comments'] = context['article'].comments.filter(active=True)

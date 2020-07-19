@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'taggit',
+    'easy_thumbnails',
 
     # local
     'users.apps.UsersConfig',

@@ -1,0 +1,51 @@
+<div class="container"> 
+    
+    <hr />
+    <div class="row">
+      <div class="col-md-12">
+        {% for article in articles %}
+        <div class="case">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xl-8 d-flex">
+              <a href=" {% url 'article:details' article.id %}">
+                <img src="{{article.image.url}}" class="img w-100 mb-3 mb-md-0" />
+              </a>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-4 d-flex">
+              <div class="text w-100 pl-md-3">
+                <span class="subheading">{{article.category.name}}</span>
+                <h2><a href="{% url 'article:details' article.id %}">{{article.title}}</a></h2>
+                {% if article.author == request.user %}
+                <ul class="media-social list-unstyled">
+                  <li class="ftco-animate">
+                    <a
+                      href="{% url 'article:edit' article.id %}"
+                      class="p-2"
+                      style="width: 80px;"
+                      >Edit
+                    </a>
+                  </li>
+                  <li class="ftco-animate">
+                    <a
+                      href="{% url 'article:delete' article.id %}"
+                      class="p-1"
+                      style="width: 80px;"
+                      >Delete</a
+                    >
+                  </li>
+                </ul>
+                {% endif %}
+
+                <div class="meta">
+                  <p class="mb-0"><a>{{article.pub}}</a> | 
+                    <a>{{article.countWords}}</a>
+                  </p>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
